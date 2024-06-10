@@ -1,0 +1,162 @@
+[gd_scene load_steps=9 format=3 uid="uid://ba1qanpsfnaid"]
+
+[ext_resource type="Script" path="res://scripts/gui/gui scripts/HUD_simulation.gd" id="1_fb2h2"]
+[ext_resource type="Script" path="res://scripts/gui/gui scripts/HUD_pause_button.gd" id="2_iiyrj"]
+[ext_resource type="Texture2D" uid="uid://bse4cm4srxp41" path="res://icons/reset icon.png" id="3_qo24c"]
+[ext_resource type="Texture2D" uid="uid://b5pkqfjo8k3s4" path="res://icons/home icon.png" id="4_wpidm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wld1h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e8hl5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c086k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o1m2e"]
+
+[node name="HUD simulation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fb2h2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -342.0
+offset_top = -75.0
+offset_right = 343.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 35
+
+[node name="reset" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+tooltip_text = "RESET"
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_qo24c")
+texture_pressed = ExtResource("3_qo24c")
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+tooltip_text = "PAUSE"
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wld1h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_e8hl5")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_c086k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o1m2e")
+toggle_mode = true
+script = ExtResource("2_iiyrj")
+
+[node name="play icon" type="Control" parent="HBoxContainer/Button"]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_left = -4.0
+offset_right = 36.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Button/play icon"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 15.0
+offset_right = 41.0
+offset_bottom = 38.0
+scale = Vector2(1.68, 2.08)
+text = "▶"
+horizontal_alignment = 1
+
+[node name="pause icon" type="Control" parent="HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -54.5
+offset_right = -8.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Button/pause icon"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -2.0
+offset_right = 25.0
+offset_bottom = 38.0
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+
+[node name="ColorRect2" type="ColorRect" parent="HBoxContainer/Button/pause icon"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -2.0
+offset_right = 4.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label time_speed" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "time speed:"
+
+[node name="Label x speed" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "x  time
+"
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="home" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+tooltip_text = "HOME"
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_wpidm")
+
+[connection signal="pressed" from="HBoxContainer/reset" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button" to="HBoxContainer/Button" method="_on_pressed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="home" to="." method="_on_home_pressed"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbf7eftsq273u"]
+
+[ext_resource type="Script" path="res://scripts/text mesh scripts/car_in_queue_counter_text_mesh.gd" id="1_rb3qk"]
+
+[sub_resource type="TextMesh" id="TextMesh_usu2x"]
+text = "cars in queue"
+font_size = 20
+uppercase = true
+
+[sub_resource type="TextMesh" id="TextMesh_wm2ni"]
+text = "x"
+font_size = 32
+uppercase = true
+
+[node name="CarsInQueueTextMesh" type="Node3D"]
+script = ExtResource("1_rb3qk")
+
+[node name="mesh cars in queue" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_usu2x")
+
+[node name="mesh x count" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05182, 0.00192231, 0)
+mesh = SubResource("TextMesh_wm2ni")
+skeleton = NodePath("../mesh cars in queue")

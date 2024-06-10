@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://be26q67msv1q3"]
+
+[ext_resource type="Script" path="res://scripts/text mesh scripts/cars_served_text_mesh.gd" id="1_ogsa4"]
+
+[sub_resource type="TextMesh" id="TextMesh_5lbup"]
+text = "served"
+font_size = 20
+
+[sub_resource type="TextMesh" id="TextMesh_n4ggi"]
+text = "x"
+font_size = 30
+
+[node name="CarsServedTextMesh" type="Node3D"]
+script = ExtResource("1_ogsa4")
+
+[node name="text mesh SERVED" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_5lbup")
+
+[node name="text mesh served count" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25743, 0)
+mesh = SubResource("TextMesh_n4ggi")

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjb0v6g7nilus"]
+
+[ext_resource type="PackedScene" uid="uid://de7ccuq7rifu1" path="res://models/blender texts/next_text.glb" id="1_ew5h8"]
+
+[node name="next_text" instance=ExtResource("1_ew5h8")]

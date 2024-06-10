@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgqtr4n8t0p5x"]
+
+[ext_resource type="Script" path="res://scripts/gui/gui scripts/2D to 3D.gd" id="1_gepix"]
+[ext_resource type="PackedScene" uid="uid://dtgswgry4d2ib" path="res://scenes/2D GUIs/2d_gui_car_wash_time.tscn" id="2_2div5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_77p3q"]
+viewport_path = NodePath("viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ej5go"]
+resource_local_to_scene = true
+render_priority = 3
+albedo_texture = SubResource("ViewportTexture_77p3q")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.35
+
+[sub_resource type="QuadMesh" id="QuadMesh_rsdqc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wc5av"]
+size = Vector3(1, 1, 0.039814)
+
+[node name="3D GUI car wash time" type="Node3D"]
+script = ExtResource("1_gepix")
+
+[node name="display" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ej5go")
+mesh = SubResource("QuadMesh_rsdqc")
+
+[node name="area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0102496)
+shape = SubResource("BoxShape3D_wc5av")
+
+[node name="viewport" type="SubViewport" parent="."]
+
+[node name="2D GUI car wash time" parent="viewport" instance=ExtResource("2_2div5")]

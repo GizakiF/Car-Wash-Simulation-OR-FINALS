@@ -1,0 +1,83 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="OR Car Wash"
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+run/max_fps=60
+boot_splash/show_image=false
+config/icon="res://icons/car-icon.png"
+run/size/viewport_height=1080
+run/size/viewport_width=1920
+
+[autoload]
+
+GlobalOptions="*res://scripts/logic scripts/Global_options.gd"
+GlobalCars="*res://scripts/logic scripts/Global_cars.gd"
+EventBus="*res://scripts/logic scripts/EventBus.gd"
+TestRunScripts="res://scripts/TEST_RUN_SCRIPTS.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+
+[dotnet]
+
+project/assembly_name="OR Car Wash"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+
+[gui]
+
+common/snap_controls_to_pixels=false
+timers/depth_of_field/depth_of_field_bokeh_quality=2
+timers/positional_shadow/atlas_16_bits=true
+timers/positional_shadow/atlas_quadrant_2_subdiv=3
+timers/positional_shadow/atlas_quadrant_1_subdiv=2
+timers/positional_shadow/atlas_quadrant_0_subdiv=2
+timers/positional_shadow/soft_shadow_filter_quality=4
+timers/directional_shadow/soft_shadow_filter_quality=4
+timers/quality/msaa_3d=3
+common/main_scene="res://scenes/main_menu.tscn"
+
+[input]
+
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"echo":false,"script":null)
+]
+}
+reset={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
+]
+}
+
+[layer_names]
+
+3d_physics/layer_10="head_layer"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=5
+camera/depth_of_field/depth_of_field_bokeh_quality=2
+anti_aliasing/quality/msaa_3d=2
+viewport/transparent_background=true
+rendering_device/per_pixel_transparency/allowed=false
+rendering_device/transparent_background=true
+rendering_device/size/transparent=false

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://vk30e0f7birc"]
+
+[ext_resource type="Script" path="res://scripts/text mesh scripts/car_wash_time_text_mesh.gd" id="1_kf7fm"]
+
+[sub_resource type="TextMesh" id="TextMesh_4m8v0"]
+text = "x seconds"
+
+[node name="text mesh x seconds" type="MeshInstance3D"]
+mesh = SubResource("TextMesh_4m8v0")
+script = ExtResource("1_kf7fm")

@@ -1,0 +1,226 @@
+[gd_scene load_steps=3 format=3 uid="uid://bswb57un1wbs6"]
+
+[sub_resource type="GDScript" id="GDScript_d0876"]
+script/source = "extends Node2D
+
+
+func _ready():
+	edit_labels()
+	EventBus.calculate_equations.connect(edit_texts)
+	pass
+
+	
+	
+func edit_labels():
+	$\"Solution W\".set_text(\"= Solution W\")
+	$\"Solution Lq\".set_text(\"= Solution Lq\")
+	$\"Solution p\".set_text(\"= Solution p\")
+	$\"Solution L\".set_text(\"= Solution L\")
+	$\"Solution Wq\".set_text(\"= Solution Wq\")
+	$\"Solution Po\".set_text(\"= Solution Po\")
+
+
+
+
+
+
+	
+
+func edit_texts():
+	
+	print(\"testing 123\")
+	var A_variable: float = 60/GlobalOptions.car_arrival_rate_seconds
+	var U_variable: int = GlobalOptions.car_wash_per_minute
+	
+	print(\"A: \", A_variable)
+	print(\"car arrivale rate per second: \",GlobalOptions.car_arrival_rate_seconds)
+	print(\"U: \", U_variable)
+	print(1-safe_divide(A_variable, U_variable))
+	
+
+	
+	var L_solution: float = safe_divide(A_variable, (U_variable - A_variable))
+	var W_solution: float = safe_divide(1, (U_variable - A_variable))
+	var Lq_solution: float = safe_divide((A_variable*A_variable), U_variable*(U_variable-A_variable))
+	var Wq_solution: float = safe_divide(A_variable, U_variable*(U_variable-A_variable))
+	var p_solution: float = safe_divide(A_variable, U_variable)
+	var Po_solution: float = 1 - safe_divide(A_variable, U_variable)
+	
+	var percent_p_solution
+	var percent_Po_solution
+	
+	if is_decimal(p_solution):
+		percent_p_solution = p_solution * 100
+		$\"Solution Po\".set_text(\"= \" + str(Po_solution) + \" or \" + str(percent_Po_solution) + \"%\" )
+	else:
+		$\"Solution Po\".set_text(\"= \" + str(Po_solution))
+		
+		
+	if is_decimal(Po_solution):
+		percent_Po_solution = Po_solution * 100
+		$\"Solution p\".set_text(\"= \" + str(p_solution) + \" or \" + str(percent_p_solution) + \"%\" )
+	else:
+		$\"Solution p\".set_text(\"= \" + str(p_solution))
+		
+	
+	
+	$\"Solution W\".set_text(\"= \" + str(W_solution) + \" minute(s)\")
+	$\"Solution Lq\".set_text(\"= \" + str(Lq_solution) + \" car(s)\")
+	$\"Solution p\".set_text(\"= \" + str(p_solution) + \" or \" + str(percent_p_solution) + \"%\" )
+	$\"Solution L\".set_text(\"= \" + str(L_solution) + \" car(s)\")
+	$\"Solution Wq\".set_text(\"= \" + str(Wq_solution) + \" minute(s)\")
+	$\"Solution Po\".set_text(\"= \" + str(Po_solution) + \" or \" + str(percent_Po_solution) + \"%\" )
+
+# this function is necessary kay wala error trapping ang GDscript lmao
+func safe_divide(numerator, denominator):
+	if denominator == 0 or numerator == 0:
+		return 0
+	return round_to_two_places(float(numerator) / float(denominator))
+	
+func round_to_two_places(value):
+	return round(value * 100) / 100.0
+	
+func is_decimal(number):
+	if number is float:
+		return number
+	else:
+		return number != int(number)
+
+
+
+# Both of these functions at the bottom are for the textboxes which are named as LineEdit1 and LineEdit2
+# the function will call if a text has been changed in the text box
+# These functions are for making sure that the text box accepts numbers only
+# the first if statement is for the backspace | elif sstatement is when text is not valid int | else is when it is a valid int
+
+var filtered_text1 = \"\"
+func _on_line_edit_1_text_changed(new_text):
+	if  $LineEdit1.get_text() == \"\":
+		$LineEdit1.set_text(\"\")
+		filtered_text1 = \"\";
+		
+	elif !new_text.is_valid_int():
+		$LineEdit1.set_text(\"\")
+		$LineEdit1.insert_text_at_caret(filtered_text1)
+		
+	else:
+		filtered_text1 = new_text 
+		
+		
+		
+		
+var filtered_text2 = \"\"
+func _on_line_edit_2_text_changed(new_text):
+	if  $LineEdit2.get_text() == \"\":
+		$LineEdit2.set_text(\"\")
+		filtered_text2 = \"\";
+		
+	elif !new_text.is_valid_int():
+		$LineEdit2.set_text(\"\")
+		$LineEdit2.insert_text_at_caret(filtered_text2)
+		
+	else:
+		filtered_text2 = new_text 
+		
+
+
+"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ecn4a"]
+blend_mode = 3
+light_mode = 2
+
+[node name="equations" type="Node2D"]
+script = SubResource("GDScript_d0876")
+
+[node name="L label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 473.0
+offset_bottom = 59.0
+text = " Average number of customers or units in the system (L)"
+
+[node name="W label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 136.0
+offset_right = 496.0
+offset_bottom = 159.0
+text = "Average time a customer spends in the system (W)"
+
+[node name="Lq label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 236.0
+offset_right = 506.0
+offset_bottom = 270.0
+text = "Average number of customers or units in a queue (Lq)"
+
+[node name="Wq label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 336.0
+offset_right = 478.0
+offset_bottom = 359.0
+text = "Average time a customer spends waiting in a queue (Wq)"
+
+[node name="p label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 436.0
+offset_right = 473.0
+offset_bottom = 459.0
+text = "Utilization factor for the system (p)"
+
+[node name="Po label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 536.0
+offset_right = 473.0
+offset_bottom = 559.0
+text = " Percent idle time (Po)"
+
+[node name="Solution W" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 176.0
+offset_right = 149.0
+offset_bottom = 199.0
+text = "Solution W"
+
+[node name="Solution Lq" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 276.0
+offset_right = 156.0
+offset_bottom = 299.0
+text = "Solution Lq "
+
+[node name="Solution p" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 476.0
+offset_right = 144.0
+offset_bottom = 499.0
+text = "Solution p"
+
+[node name="Solution L" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 76.0
+offset_right = 142.0
+offset_bottom = 99.0
+text = "Solution L"
+
+[node name="Solution Wq" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 376.0
+offset_right = 159.0
+offset_bottom = 399.0
+text = "Solution Wq"
+
+[node name="Solution Po" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 576.0
+offset_right = 153.0
+offset_bottom = 599.0
+text = "Solution Po"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+material = SubResource("CanvasItemMaterial_ecn4a")
+offset_right = 1927.0
+offset_bottom = 1073.0
+size_flags_stretch_ratio = 0.0
+color = Color(0.31802, 0.31802, 0.31802, 1)

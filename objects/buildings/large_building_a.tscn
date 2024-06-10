@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dobajmdyping7"]
+
+[ext_resource type="PackedScene" uid="uid://ds34fi8jcblbp" path="res://models/kenny buildings/large_buildingA.glb" id="1_ejtj1"]
+
+[node name="large_buildingA2" instance=ExtResource("1_ejtj1")]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://daxmnf65gwcfy"]
+
+[ext_resource type="Script" path="res://scripts/text mesh scripts/car_arrival_text_mesh.gd" id="1_rwkhi"]
+
+[sub_resource type="TextMesh" id="TextMesh_ar8dp"]
+text = "a car arrives in"
+font_size = 13
+uppercase = true
+
+[sub_resource type="TextMesh" id="TextMesh_mmc88"]
+text = "x sec"
+font_size = 24
+uppercase = true
+
+[node name="CarArrivalTimeTextMesh" type="Node3D"]
+script = ExtResource("1_rwkhi")
+
+[node name="text mesh car arrives in" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_ar8dp")
+
+[node name="text mesh x sec" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223033, 0)
+mesh = SubResource("TextMesh_mmc88")

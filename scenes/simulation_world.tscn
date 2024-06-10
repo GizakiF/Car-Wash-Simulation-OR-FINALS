@@ -1,0 +1,221 @@
+[gd_scene load_steps=29 format=3 uid="uid://biu8dr17ao5df"]
+
+[ext_resource type="PackedScene" uid="uid://dppmp386iun6l" path="res://objects/car wash.tscn" id="2_3cktx"]
+[ext_resource type="PackedScene" uid="uid://beeqkjvotbbym" path="res://objects/logic objects/car manager.tscn" id="2_wdhm1"]
+[ext_resource type="PackedScene" uid="uid://mpdxikkfikjx" path="res://objects/logic objects/instatiation_position.tscn" id="4_yxnsa"]
+[ext_resource type="PackedScene" uid="uid://daxmnf65gwcfy" path="res://objects/text meshes/car arrival time text mesh.tscn" id="6_hjn66"]
+[ext_resource type="PackedScene" uid="uid://dbf7eftsq273u" path="res://objects/text meshes/cars_in_queue_text_mesh.tscn" id="7_711ff"]
+[ext_resource type="PackedScene" uid="uid://crldowm4cm4ya" path="res://objects/prop_objects.tscn" id="8_7by30"]
+[ext_resource type="PackedScene" uid="uid://ba1qanpsfnaid" path="res://scenes/2D GUIs/HUD simulation.tscn" id="8_b7pde"]
+[ext_resource type="PackedScene" uid="uid://be26q67msv1q3" path="res://objects/text meshes/cars served text mesh.tscn" id="8_m01ko"]
+[ext_resource type="Script" path="res://scripts/gui/HUD.gd" id="8_pg6hv"]
+[ext_resource type="PackedScene" uid="uid://bswb57un1wbs6" path="res://scenes/equations ui/equations.tscn" id="9_dr86o"]
+[ext_resource type="Script" path="res://scenes/equations ui.gd" id="9_psv0w"]
+[ext_resource type="PackedScene" uid="uid://vk30e0f7birc" path="res://objects/text meshes/text mesh car wash time.tscn" id="9_ueq44"]
+[ext_resource type="PackedScene" uid="uid://b0stkicva110g" path="res://scenes/2D GUIs/HUD overview.tscn" id="11_4ke63"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pguvl"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_w1u0v"]
+sky_material = SubResource("ProceduralSkyMaterial_pguvl")
+
+[sub_resource type="Environment" id="Environment_gwl15"]
+background_mode = 2
+sky = SubResource("Sky_w1u0v")
+tonemap_mode = 2
+glow_enabled = true
+fog_light_energy = 0.2
+fog_sky_affect = 0.579
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vmo4s"]
+albedo_color = Color(0.205117, 0.205117, 0.205117, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srkp5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8i4e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ip7ei"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_35spa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rueuq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_umlae"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_tvyh2"]
+allow_unpress = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vlk50"]
+
+[sub_resource type="Animation" id="Animation_vqr7e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HudOverview:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1131, 290)]
+}
+
+[sub_resource type="Animation" id="Animation_1yj5b"]
+resource_name = "overview-animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HudOverview:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1940, 290), Vector2(1131, 290)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fdxv4"]
+_data = {
+"RESET": SubResource("Animation_vqr7e"),
+"overview-animation": SubResource("Animation_1yj5b")
+}
+
+[node name="simulation world" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gwl15")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="floor" type="CSGBox3D" parent="."]
+size = Vector3(500, 0, 500)
+material = SubResource("StandardMaterial3D_vmo4s")
+
+[node name="car wash" parent="." instance=ExtResource("2_3cktx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87296, 18)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.774094, 0.42864, -0.465881, -7.45058e-09, 0.735908, 0.677082, 0.63307, 0.524125, -0.569662, -13.0862, 19.8272, -5.90189)
+projection = 1
+size = 28.292
+far = 215.07
+
+[node name="car manager" parent="." node_paths=PackedStringArray("instatiation_position", "cars_in_queue_node", "car_in_service", "cars_finished_array") instance=ExtResource("2_wdhm1")]
+instatiation_position = NodePath("../instatiation position")
+cars_in_queue_node = NodePath("../cars in queue")
+car_in_service = NodePath("../car in service")
+cars_finished_array = NodePath("../cars done queuing")
+
+[node name="cars in queue" type="Node" parent="."]
+
+[node name="car in service" type="Node" parent="."]
+
+[node name="cars done queuing" type="Node" parent="."]
+
+[node name="instatiation position" parent="." instance=ExtResource("4_yxnsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.9687)
+
+[node name="prop objects" parent="." instance=ExtResource("8_7by30")]
+
+[node name="CarArrivalTimeTextMesh" parent="." node_paths=PackedStringArray("car_manager") instance=ExtResource("6_hjn66")]
+transform = Transform3D(-7.10543e-15, 9.45177, -2.38419e-07, 4.1315e-07, 2.38419e-07, 9.45177, 9.45177, -2.00149e-21, -4.1315e-07, 5.75778, -0.219378, -13.3512)
+car_manager = NodePath("../car manager")
+
+[node name="CarsInQueueTextMesh" parent="." node_paths=PackedStringArray("cars_in_queue") instance=ExtResource("7_711ff")]
+transform = Transform3D(1.80594e-14, 9.45177, 4.1315e-07, 4.1315e-07, -4.1315e-07, 9.45177, 9.45177, 0, -4.1315e-07, -3.26538, -0.191293, -0.990886)
+cars_in_queue = NodePath("../cars in queue")
+
+[node name="CarsServedTextMesh" parent="." node_paths=PackedStringArray("car_queueing_finished") instance=ExtResource("8_m01ko")]
+transform = Transform3D(-3.0598e-07, 7, 3.0598e-07, 0, -3.0598e-07, 7, 7, 3.0598e-07, 1.33748e-14, -2.82239, -0.154296, 37.7538)
+car_queueing_finished = NodePath("../cars done queuing")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("8_pg6hv")
+
+[node name="simulation HUD" parent="HUD" instance=ExtResource("8_b7pde")]
+
+[node name="equations ui" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1946.0
+offset_right = 1986.0
+offset_bottom = 40.0
+script = ExtResource("9_psv0w")
+
+[node name="equations" parent="HUD/equations ui" instance=ExtResource("9_dr86o")]
+position = Vector2(-23, 458)
+
+[node name="CheckButton" type="CheckButton" parent="HUD/equations ui"]
+layout_mode = 0
+offset_left = -144.0
+offset_top = 212.0
+offset_right = -100.0
+offset_bottom = 236.0
+scale = Vector2(2, 2)
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_srkp5")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i8i4e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ip7ei")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_35spa")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_rueuq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_umlae")
+button_group = SubResource("ButtonGroup_tvyh2")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+
+[node name="CheckButton2" type="CheckButton" parent="HUD/equations ui"]
+layout_mode = 0
+offset_left = -201.0
+offset_top = 250.0
+offset_right = -123.0
+offset_bottom = 286.0
+scale = Vector2(2, 2)
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vlk50")
+button_group = SubResource("ButtonGroup_tvyh2")
+
+[node name="HudOverview" parent="HUD" node_paths=PackedStringArray("cars_in_queue_node", "car_in_service", "cars_finished_queuing_node") instance=ExtResource("11_4ke63")]
+offset_left = 1131.0
+offset_top = 290.0
+offset_right = 3858.01
+offset_bottom = 2457.0
+cars_in_queue_node = NodePath("../../cars in queue")
+car_in_service = NodePath("../../car in service")
+cars_finished_queuing_node = NodePath("../../cars done queuing")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/HudOverview"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_fdxv4")
+}
+speed_scale = 1.5
+
+[node name="Label show equations" type="Label" parent="HUD"]
+offset_left = 1678.0
+offset_top = 224.0
+offset_right = 1811.0
+offset_bottom = 247.0
+text = "Queue Equations"
+horizontal_alignment = 1
+
+[node name="Label show overview" type="Label" parent="HUD"]
+offset_left = 1738.0
+offset_top = 274.0
+offset_right = 1811.0
+offset_bottom = 297.0
+text = "Overview"
+
+[node name="TextMeshCarWashTime" parent="." instance=ExtResource("9_ueq44")]
+transform = Transform3D(-10, -1.50996e-06, -6.60024e-14, 0, -4.37114e-07, 10, -1.50996e-06, 10, 4.37114e-07, -7, -0.237267, 22.9309)
+
+[connection signal="toggled" from="HUD/equations ui/CheckButton" to="HUD/equations ui" method="_on_check_button_toggled"]
+[connection signal="toggled" from="HUD/equations ui/CheckButton2" to="HUD" method="_on_check_button_2_toggled"]

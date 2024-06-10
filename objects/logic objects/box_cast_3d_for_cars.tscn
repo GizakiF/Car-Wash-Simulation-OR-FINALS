@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmrx01tbqah0b"]
+
+[ext_resource type="Script" path="res://scripts/car scripts/car_box_shapecast.gd" id="1_qleit"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vo31e"]
+
+[node name="ShapeCast3D for cars" type="ShapeCast3D"]
+transform = Transform3D(1.43768, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46625, 3.33384)
+shape = SubResource("BoxShape3D_vo31e")
+margin = 0.4
+collide_with_areas = true
+script = ExtResource("1_qleit")

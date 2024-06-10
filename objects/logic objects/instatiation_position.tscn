@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://mpdxikkfikjx"]
+
+[ext_resource type="Script" path="res://scripts/logic scripts/instatiation_logic.gd" id="1_523wg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7cnxp"]
+
+[node name="instatiation position" type="Marker3D"]
+script = ExtResource("1_523wg")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3.11165, 0, 0.53383, 0)
+shape = SubResource("BoxShape3D_7cnxp")
+target_position = Vector3(0, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false

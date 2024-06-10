@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvgyj0esuyb7k"]
+
+[ext_resource type="Script" path="res://scripts/gui/gui scripts/2D to 3D.gd" id="1_y8trm"]
+[ext_resource type="PackedScene" uid="uid://bn7l2rhykstql" path="res://scenes/2D GUIs/2d_gui_car_arrival_rate.tscn" id="2_gshog"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qfm6m"]
+viewport_path = NodePath("viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sg5xk"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_qfm6m")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_rsdqc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wc5av"]
+size = Vector3(1, 1, 0.0423584)
+
+[node name="3D GUI car arrival rate" type="Node3D"]
+script = ExtResource("1_y8trm")
+
+[node name="display" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_sg5xk")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_rsdqc")
+
+[node name="area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00436746)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00897744)
+shape = SubResource("BoxShape3D_wc5av")
+
+[node name="viewport" type="SubViewport" parent="."]
+
+[node name="2D GUI car arrival rate" parent="viewport" instance=ExtResource("2_gshog")]
